@@ -9,8 +9,9 @@
 
 #include "stm32f769i_discovery_lcd.h"
 #include "stm32f769i_discovery_ts.h"
-#include "app_x-cube-ai.h"
-#include "network.h"
+#include "App/app_x-cube-ai.h"
+#include "App/network.h"
+#include "stdio.h"
 
 /* User PV */
 uint16_t DrawPosX_Data = 0;
@@ -25,6 +26,7 @@ AI_ALIGNED(4)
 static ai_i8 out_data[AI_NETWORK_OUT_1_SIZE_BYTES];
 
 float predictionval[10];
+float predictionval_Sort[10][2];
 char cNumbers[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
 /* Pre-Func */
@@ -176,17 +178,45 @@ static void Run_Predict()
 			p[j] = u32dummy >> (8 * j);
 		}
 		predictionval[i] = dummyfloat * 100;
-
 	}
 
+	float temp_sort = 0.0f;
+	uint8_t temp_pos = 0;
+
+	for(uint8_t cc = 0; cc < 10; cc++)
+	{
+		for(uint8_t c = 0; c < 10; c++)
+		{
+			if(temp_sort <= predictionval[c])
+			{
+				temp_pos = c;
+				temp_sort = predictionval[c];
+			}
+			else{}
+		}
+		predictionval_Sort[cc][0] = temp_sort;
+		predictionval_Sort[cc][1] = temp_pos;
+		predictionval[temp_pos] = 0.0f;
+		temp_sort = 0.0f;
+	}
+
+	char strBuffer[30] = {0,};
 
 	BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
 	BSP_LCD_SetBackColor(LCD_COLOR_GRAY);
 	BSP_LCD_SetFont(&Font20);
-	BSP_LCD_DisplayStringAt(PRED_ZONE_START_X+25, PRED_ZONE_START_Y+20, (uint8_t*) "Predict", LEFT_MODE);
-	BSP_LCD_DisplayStringAt(PRED_ZONE_START_X+15, PRED_ZONE_START_Y+50, (uint8_t*) "Result is", LEFT_MODE);
-	BSP_LCD_SetFont(&Font24);
-	BSP_LCD_DisplayStringAt(PRED_ZONE_START_X+70, PRED_ZONE_START_Y+90, (uint8_t*) "9", LEFT_MODE);
+
+	sprintf(strBuffer, "%.0f (%.2f)", predictionval_Sort[0][1], predictionval_Sort[0][0]);
+	BSP_LCD_DisplayStringAt(PRED_ZONE_START_X+15, PRED_ZONE_START_Y+20,
+			(uint8_t*) strBuffer, LEFT_MODE);
+
+	sprintf(strBuffer, "%.0f (%.2f)", predictionval_Sort[1][1], predictionval_Sort[1][0]);
+	BSP_LCD_DisplayStringAt(PRED_ZONE_START_X+15, PRED_ZONE_START_Y+50,
+			(uint8_t*) strBuffer, LEFT_MODE);
+
+	sprintf(strBuffer, "%.0f (%.2f)", predictionval_Sort[2][1], predictionval_Sort[2][0]);
+		BSP_LCD_DisplayStringAt(PRED_ZONE_START_X+15, PRED_ZONE_START_Y+80,
+			(uint8_t*) strBuffer, LEFT_MODE);
 }
 
 /**
