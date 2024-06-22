@@ -26,9 +26,9 @@ extern "C" {
 #include "ai_platform.h"
 
 void MX_X_CUBE_AI_Init(void);
-void MX_X_CUBE_AI_Process(void);
+//void MX_X_CUBE_AI_Process(void);
 /* USER CODE BEGIN includes */
-int aiRun(const void *in_data, void *out_data);
+int User_Ai_Run(const void *in_data, void *out_data);
 /* USER CODE END includes */
 #ifdef __cplusplus
 }

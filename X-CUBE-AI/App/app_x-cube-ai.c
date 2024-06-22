@@ -154,44 +154,21 @@ static int ai_boostrap(ai_handle *act_addr)
   return 0;
 }
 
-static int ai_run(void)
-{
-  ai_i32 batch;
-
-  batch = ai_network_run(network, ai_input, ai_output);
-  if (batch != 1) {
-    ai_log_err(ai_network_get_error(network),
-        "ai_network_run");
-    return -1;
-  }
-
-  return 0;
-}
+//static int ai_run(void)
+//{
+//  ai_i32 batch;
+//
+//  batch = ai_network_run(network, ai_input, ai_output);
+//  if (batch != 1) {
+//    ai_log_err(ai_network_get_error(network),
+//        "ai_network_run");
+//    return -1;
+//  }
+//
+//  return 0;
+//}
 
 /* USER CODE BEGIN 2 */
-int acquire_and_process_data(ai_i8* data[])
-{
-  /* fill the inputs of the c-model
-  for (int idx=0; idx < AI_NETWORK_IN_NUM; idx++ )
-  {
-      data[idx] = ....
-  }
-
-  */
-  return 0;
-}
-
-int post_process(ai_i8* data[])
-{
-  /* process the predictions
-  for (int idx=0; idx < AI_NETWORK_OUT_NUM; idx++ )
-  {
-      data[idx] = ....
-  }
-
-  */
-  return 0;
-}
 
 /* USER CODE END 2 */
 
@@ -205,23 +182,25 @@ void MX_X_CUBE_AI_Init(void)
     /* USER CODE END 5 */
 }
 
-int aiRun(const void *in_data, void *out_data)
+int User_Ai_Run(const void *in_data, void *out_data)
 {
-    ai_i32 nbatch;
-    ai_error err;
+    ai_i32 batch;
 
     /* Parameters checking */
     if (!in_data || !out_data || !network)
-        return -1;
+    {
+    	ai_log_err(ai_network_get_error(network), "in data, out data error");
+    	return -1;
+    }
 
     ai_input[0].data = AI_HANDLE_PTR(in_data);
     ai_output[0].data = AI_HANDLE_PTR(out_data);
 
-    nbatch = ai_network_run(network, &ai_input[0], &ai_output[0]);
-    if (nbatch != 1) {
-        err = ai_network_get_error(network);
-        // ...
-        return err.code;
+    batch = ai_network_run(network, &ai_input[0], &ai_output[0]);
+    if (batch != 1)
+    {
+    	ai_log_err(ai_network_get_error(network), "ai network run error");
+    	return -1;
     }
 
     return 0;
@@ -230,27 +209,26 @@ int aiRun(const void *in_data, void *out_data)
 void MX_X_CUBE_AI_Process(void)
 {
     /* USER CODE BEGIN 6 */
-  int res = -1;
-
-
-  if (network) {
-
-    do {
-      /* 1 - acquire and pre-process input data */
-      res = acquire_and_process_data(data_ins);
-      /* 2 - process the data - call inference engine */
-      if (res == 0)
-        res = ai_run();
-      /* 3- post-process the predictions */
-      if (res == 0)
-        res = post_process(data_outs);
-    } while (res==0);
-  }
-
-  if (res) {
-    ai_error err = {AI_ERROR_INVALID_STATE, AI_ERROR_CODE_NETWORK};
-    ai_log_err(err, "Process has FAILED");
-  }
+//  int res = -1;
+//
+//  if (network) {
+//
+//    do {
+//      /* 1 - acquire and pre-process input data */
+//      res = acquire_and_process_data(data_ins);
+//      /* 2 - process the data - call inference engine */
+//      if (res == 0)
+//        res = ai_run();
+//      /* 3- post-process the predictions */
+//      if (res == 0)
+//        res = post_process(data_outs);
+//    } while (res==0);
+//  }
+//
+//  if (res) {
+//    ai_error err = {AI_ERROR_INVALID_STATE, AI_ERROR_CODE_NETWORK};
+//    ai_log_err(err, "Process has FAILED");
+//  }
     /* USER CODE END 6 */
 }
 #ifdef __cplusplus
