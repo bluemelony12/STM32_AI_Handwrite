@@ -1,12 +1,16 @@
 # Handwritten digit recognition using STM32 X-CUBE-AI
 
 ## Description
-This project adds custom CNN deep learning model to the firmware used to STM32 X-CUBE-AI.  
+This project aims to use CNN deep learning models in firmware using STM32 X-CUBE-AI.
 recognizes handwritten numbers drawn on the screen, and outputs the results.  
-(three highest predictions are displayed on the screen, numbered 0 to 9.)  
 development target is stm32F769i disco board and built based on STM32CubeMX and STM32CubeIDE.  
 
 ![NumCheck_1](https://github.com/user-attachments/assets/4f72338a-f010-4cee-9248-c8e51eb2fb4e)  
+
+The LCD has a handwriting area, an action button, and a result display area.  
+The handwriting area consists of 28 x 28 pixels, and the drawn part is processed as 1 and the undrawn part as 0.  
+When you press the Run button, the input handwritten data is organized into one array and goes to the AI input.  
+CNN model completes its operation, the results appear on the LCD (three highest predictions, number type: 0 to 9)  
 
 **--Version--**  
 STM32CUBE F7 v1.17.2  
@@ -43,7 +47,7 @@ STM32_AI_Handwrite
 │  ├─ CMSIS
 │  └─ STM32F7xx_HAL_Driver
 ├─ HandWriteNumber.tflite --------------> Model converted to TensorFlow Lite
-├─ Hand_Write_Number.ipynb -------------> Custom CNN model code (Jupyter Notebook)
+├─ Hand_Write_Number.ipynb -------------> My CNN model code (Jupyter Notebook)
 ├─ Middlewares
 │  └─ ST
 │     └─ AI ----------------------------> X-CUBE-AI middleware package
