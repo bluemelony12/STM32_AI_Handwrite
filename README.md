@@ -1,7 +1,7 @@
 # Handwritten digit recognition using STM32 X-CUBE-AI
 
 ## Description
-This project adds custom CNN deep learning model to the firmware used to STM32 X-CUBE-AI.
+This project adds custom CNN deep learning model to the firmware used to STM32 X-CUBE-AI.  
 recognizes handwritten numbers drawn on the screen, and outputs the results.  
 (three highest predictions are displayed on the screen, numbered 0 to 9.)  
 development target is stm32F769i disco board and built based on STM32CubeMX and STM32CubeIDE.  
@@ -60,12 +60,12 @@ STM32_AI_Handwrite
 
 **1. Training Dataset**  
 Training dataset is TensorFlow's MNIST handwritten digit data set,28x28.  
-(ref. https://www.tensorflow.org/datasets/catalog/mnist?hl=ko)  
+(ref. https://www.tensorflow.org/datasets/catalog/mnist)  
 
   
 **2. Model Layer** 
 ```
-intput shape = 28 x 28 x 1
+intput shape = 28, 28, 1
 _________________________________________________________________
  Layer (type)                Output Shape              Param #   
 =================================================================
