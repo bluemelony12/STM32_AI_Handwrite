@@ -108,7 +108,7 @@ and Pressing the Clear button, screen and results will be clear
 
 https://github.com/user-attachments/assets/13894ae9-26f5-4428-852e-e9b77f4bee48  
 
-## Problem
+## Issue
 1. Learning about the number 6 is a bit lacking. :worried:
 2. This project is intended for personal study and may be of low quality. :worried::worried:
 
