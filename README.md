@@ -1,15 +1,16 @@
 # Handwritten digit recognition using STM32 X-CUBE-AI
 
 ## Description
-This project adds a CNN deep learning model to the firmware based on STM32 X-CUBE-AI,  
+This project adds custom CNN deep learning model to the firmware used to STM32 X-CUBE-AI.
 recognizes handwritten numbers drawn on the screen, and outputs the results.  
-(Displays up to three predicted values, numbered 0 to 9.)  
+(three highest predictions are displayed on the screen, numbered 0 to 9.)  
 development target is stm32F769i disco board and built based on STM32CubeMX and STM32CubeIDE.  
 
 ![NumCheck_1](https://github.com/user-attachments/assets/4f72338a-f010-4cee-9248-c8e51eb2fb4e)  
 
 **--Version--**  
-STM32CUBE F7 v1.17.1  
+STM32CUBE F7 v1.17.2  
+STM32CUBE MX 6.11.1 
 STM32CUBE IDE 1.15.1  
 X-CUBE-AI 9.0.0
 
@@ -20,7 +21,7 @@ STM32_AI_Handwrite
 ├─ .cproject
 ├─ .gitignore
 ├─ .mxproject
-├─ .project
+├─ .project -----------------------------> Main project file
 ├─ BSP ----------------------------------> BSP for LCD and touch screen use
 │  ├─ Components
 │  │  ├─ nt35510
@@ -42,7 +43,7 @@ STM32_AI_Handwrite
 │  ├─ CMSIS
 │  └─ STM32F7xx_HAL_Driver
 ├─ HandWriteNumber.tflite --------------> Model converted to TensorFlow Lite
-├─ Hand_Write_Number.ipynb -------------> Custom CNN model
+├─ Hand_Write_Number.ipynb -------------> Custom CNN model code (Jupyter Notebook)
 ├─ Middlewares
 │  └─ ST
 │     └─ AI ----------------------------> X-CUBE-AI middleware package
@@ -58,7 +59,7 @@ STM32_AI_Handwrite
 ## AI Model Information  
 
 **1. Training Dataset**  
-training dataset was TensorFlow's MNIST handwritten digit data set,28x28.  
+Training dataset is TensorFlow's MNIST handwritten digit data set,28x28.  
 (ref. https://www.tensorflow.org/datasets/catalog/mnist?hl=ko)  
 
   
@@ -95,17 +96,21 @@ Non-trainable params: 0
 **3. Loss Graph**  
 ![image](https://github.com/user-attachments/assets/8869ef46-2a5e-41eb-aa31-53d2d3d1a0c9)  
 
-## How to run the project
-1. Execute the .project file for add the project to the CubeIDE
-2. Build project. (Target: stm32F769i disco board)
-3. Connect the target board and run it.
-4. When the program starts, the input value (x_val) is increased by 0.1 from 0 and the predicted output value Sin(y_val) is output to VCP.
+## How to run
+1. Execute the .project file for add the project to the CubeIDE  
+(Merging may be necessary due to differences in program versions.)
+3. Build project. (Target: stm32F769i disco board)
+4. Connect the target board and RUN it.
+5. When the program runs normally, draw a number and press the Run button on the screen to predict the value.  
+and Pressing the Clear button, screen and results will be clear
 
-## Running
+## Preview
 
+https://github.com/user-attachments/assets/13894ae9-26f5-4428-852e-e9b77f4bee48  
 
 ## Problem
-1. AI modeling input ranges from 0 to 2pi, so any value higher than that will result in an error.
+1. Learning about the number 6 is a bit lacking. :worried:
+2. This project is intended for personal study and may be of low quality. :worried::worried:
 
 
 
