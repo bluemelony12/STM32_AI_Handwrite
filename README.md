@@ -2,15 +2,15 @@
 
 ## Description
 This project aims to use CNN deep learning models in firmware using STM32 X-CUBE-AI.
-recognizes handwritten numbers drawn on the screen, and outputs the results.  
+recognizes handwritten numbers drawn on screen, and outputs results.  
 development target is stm32F769i disco board and built based on STM32CubeMX and STM32CubeIDE.  
 
 ![NumCheck_1](https://github.com/user-attachments/assets/4f72338a-f010-4cee-9248-c8e51eb2fb4e)  
 
 The LCD has a handwriting area, an action button, and a result display area.  
-The handwriting area consists of 28 x 28 pixels, and the drawn part is processed as 1 and the undrawn part as 0.  
-When you press the Run button, the input handwritten data is organized into one array and goes to the AI input.  
-CNN model completes its operation, the results appear on the LCD (three highest predictions, number type: 0 to 9)  
+The handwriting area consists of 28 x 28 pixels, and drawn part is processed as 1 and undrawn part as 0.  
+When you press Run button, input handwritten data is organized into one array and goes to AI input.  
+CNN model completes its operation, results appear on LCD (three highest predictions, number type: 0 to 9)  
 
 **--Version--**  
 STM32CUBE F7 v1.17.2  
@@ -101,19 +101,19 @@ Non-trainable params: 0
 ![image](https://github.com/user-attachments/assets/8869ef46-2a5e-41eb-aa31-53d2d3d1a0c9)  
 
 ## How to run
-1. Execute the .project file for add the project to the CubeIDE  
+1. Execute .project file for add project to CubeIDE  
 (Merging may be necessary due to differences in program versions.)
 3. Build project. (Target: stm32F769i disco board)
-4. Connect the target board and RUN it.
-5. When the program runs normally, draw a number and press the Run button on the screen to predict the value.  
-and Pressing the Clear button, screen and results will be clear
+4. Connect target board and RUN it.
+5. When program runs normally, draw a number and press Run button on screen to predict value.  
+And Pressing Clear button, screen and results will be clear
 
 ## Preview
 
 https://github.com/user-attachments/assets/13894ae9-26f5-4428-852e-e9b77f4bee48  
 
 ## Issue
-1. Learning about the number 6 is a bit lacking. :worried:
+1. Learning about number 6 is a bit lacking. :worried:
 2. This project is intended for personal study and may be of low quality. :worried::worried:
 
 
